@@ -15,18 +15,9 @@ Generate a beginner-friendly explanation of a technical topic (default: *"What i
 
 ## ⚙️ How it works
 
-```text
-question ──▶ [ Generator ] ──draft──▶ [ Code checks + LLM evaluator ]
-                  ▲                                │
-                  │                           any problems?
-                  │                                │
-                  └──── yes: problems + draft ◀────┤
-                                                   │ no
-                                                   ▼
-                                                ✅ done
-
-   Stops after MAX_ROUNDS = 3 and reports passed=False.
-```
+<p align="center">
+  <img src="../../assets/evaluator-optimizer.png" alt="Evaluator–Optimizer loop: the generator writes a draft, code checks and an LLM evaluator review it, and any problems are sent back with the previous draft until it passes or 3 rounds run out." width="640">
+</p>
 
 1. **Generate** — Claude writes a draft (temperature 0.7) from the shared list of rules.
 2. **Evaluate** — code checks the rules it can measure exactly. A second Claude call at temperature 0 judges the rest and returns JSON.

@@ -1,0 +1,72 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><style>html,body{margin:0;padding:0;background:#0f172a;overflow:hidden}</style></head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200" font-family="Segoe UI, Inter, Arial, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#94a3b8"/>
+    </marker>
+    <marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97757"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="1200" fill="#0f172a"/>
+
+  <!-- Title -->
+  <text x="600" y="100" text-anchor="middle" font-size="54" font-weight="700" fill="#f8fafc">Evaluator–Optimizer</text>
+  <text x="600" y="148" text-anchor="middle" font-size="24" fill="#94a3b8">Generate → check → revise, built from scratch with the Claude API</text>
+
+  <!-- Question -->
+  <rect x="330" y="200" width="540" height="64" rx="32" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+  <text x="600" y="241" text-anchor="middle" font-size="24" fill="#e2e8f0">Question: “What is NAT in networks?”</text>
+  <line x1="600" y1="264" x2="600" y2="318" stroke="#94a3b8" stroke-width="3" marker-end="url(#a)"/>
+
+  <!-- Generator -->
+  <rect x="380" y="320" width="440" height="110" rx="18" fill="#1e293b" stroke="#d97757" stroke-width="3"/>
+  <text x="600" y="368" text-anchor="middle" font-size="32" font-weight="700" fill="#f8fafc">Generator</text>
+  <text x="600" y="405" text-anchor="middle" font-size="21" fill="#cbd5e1">Claude · temperature 0.7 · writes the draft</text>
+
+  <!-- Split arrows -->
+  <path d="M600,430 V470 H355 V506" fill="none" stroke="#94a3b8" stroke-width="3" marker-end="url(#a)"/>
+  <path d="M600,470 H845 V506" fill="none" stroke="#94a3b8" stroke-width="3" marker-end="url(#a)"/>
+  <text x="612" y="460" font-size="19" fill="#94a3b8">draft</text>
+
+  <!-- Code checks -->
+  <rect x="150" y="508" width="410" height="192" rx="18" fill="#1e293b" stroke="#38bdf8" stroke-width="3"/>
+  <text x="355" y="553" text-anchor="middle" font-size="30" font-weight="700" fill="#f8fafc">Code checks</text>
+  <text x="355" y="583" text-anchor="middle" font-size="19" fill="#38bdf8">exact · free · deterministic</text>
+  <text x="185" y="630" font-size="22" fill="#e2e8f0">• Under 100 words</text>
+  <text x="185" y="668" font-size="22" fill="#e2e8f0">• Ends with exactly one question</text>
+
+  <!-- LLM evaluator -->
+  <rect x="640" y="508" width="410" height="192" rx="18" fill="#1e293b" stroke="#a78bfa" stroke-width="3"/>
+  <text x="845" y="553" text-anchor="middle" font-size="30" font-weight="700" fill="#f8fafc">LLM evaluator</text>
+  <text x="845" y="583" text-anchor="middle" font-size="19" fill="#a78bfa">Claude · temperature 0 · JSON verdict</text>
+  <text x="675" y="630" font-size="22" fill="#e2e8f0">• Exactly one everyday analogy</text>
+  <text x="675" y="668" font-size="22" fill="#e2e8f0">• Every technical term explained</text>
+
+  <!-- Merge arrows -->
+  <path d="M355,700 V740 H600 V776" fill="none" stroke="#94a3b8" stroke-width="3" marker-end="url(#a)"/>
+  <path d="M845,700 V740 H600" fill="none" stroke="#94a3b8" stroke-width="3"/>
+
+  <!-- Decision -->
+  <polygon points="600,778 735,840 600,902 465,840" fill="#1e293b" stroke="#fbbf24" stroke-width="3"/>
+  <text x="600" y="848" text-anchor="middle" font-size="24" font-weight="700" fill="#f8fafc">Any problems?</text>
+
+  <!-- Yes: loop back -->
+  <path d="M735,840 H1110 V375 H824" fill="none" stroke="#d97757" stroke-width="3" stroke-dasharray="10 7" marker-end="url(#ao)"/>
+  <text x="760" y="826" font-size="22" font-weight="700" fill="#d97757">yes</text>
+  <text x="965" y="358" text-anchor="middle" font-size="20" fill="#d97757">problems + previous draft</text>
+
+  <!-- No: pass -->
+  <line x1="600" y1="902" x2="600" y2="958" stroke="#94a3b8" stroke-width="3" marker-end="url(#a)"/>
+  <text x="614" y="938" font-size="22" font-weight="700" fill="#34d399">no</text>
+  <rect x="400" y="960" width="400" height="76" rx="18" fill="#1e293b" stroke="#34d399" stroke-width="3"/>
+  <text x="600" y="1007" text-anchor="middle" font-size="26" font-weight="700" fill="#f8fafc">✅ Passed</text>
+
+  <!-- Footer -->
+  <text x="600" y="1098" text-anchor="middle" font-size="21" fill="#cbd5e1">Max 3 rounds, then it reports passed = False · bad evaluator JSON counts as a fail</text>
+  <text x="600" y="1150" text-anchor="middle" font-size="20" fill="#64748b">github.com/youhana-sobhy/agentic-patterns-lab</text>
+</svg>
+</body></html>

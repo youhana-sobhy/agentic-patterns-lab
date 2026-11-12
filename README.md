@@ -58,6 +58,7 @@ agentic-patterns-lab/
 │   └── evaluator-optimizer/
 │       ├── evaluator_optimizer.py   # generate → check → revise loop
 │       └── README.md                # lab notes and design decisions
+├── assets/                          # diagrams (PNG + HTML source)
 ├── .env.example                     # template for your local .env
 ├── .gitignore
 ├── requirements.txt
