@@ -7,7 +7,6 @@
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![Anthropic](https://img.shields.io/badge/Anthropic-Claude%20API-D97757)](https://docs.anthropic.com/)
 [![Status](https://img.shields.io/badge/status-actively%20learning-brightgreen)](#-progress)
-[![License](https://img.shields.io/badge/license-MIT-blue)](#-license)
 
 </div>
 
@@ -47,7 +46,7 @@ Workflows orchestrate LLMs through predefined code paths — trading some flexib
 | **Routing** | Classify the input and dispatch it to a specialized handler | 🔜 |
 | **Parallelization** | Run sub-tasks concurrently (sectioning) or sample multiple answers (voting) | 🔜 |
 | **Orchestrator–Workers** | A central LLM breaks down work dynamically and delegates to workers | 🔜 |
-| **Evaluator–Optimizer** | One LLM generates, another critiques, iterating until quality criteria are met | [🚧](04-workflows/evaluator-optimizer/) |
+| **Evaluator–Optimizer** | One LLM generates, another critiques, iterating until quality criteria are met | [✅ Lab](04-workflows/evaluator-optimizer/) |
 
 ---
 
@@ -57,8 +56,11 @@ Workflows orchestrate LLMs through predefined code paths — trading some flexib
 agentic-patterns-lab/
 ├── 04-workflows/
 │   └── evaluator-optimizer/
-│       └── evaluator_optimizer.py
+│       ├── evaluator_optimizer.py   # generate → check → revise loop
+│       └── README.md                # lab notes and design decisions
+├── .env.example                     # template for your local .env
 ├── .gitignore
+├── requirements.txt
 └── README.md
 ```
 
@@ -80,13 +82,13 @@ cd agentic-patterns-lab
 python -m venv .venv
 source .venv/bin/activate        # Windows: .venv\Scripts\activate
 
-pip install anthropic python-dotenv
+pip install -r requirements.txt
 ```
 
-Create a local `.env` file in the project root with your API key (it is git-ignored and must never be committed):
+Copy the template and add your API key. `.env` is git-ignored and must never be committed:
 
 ```bash
-ANTHROPIC_API_KEY=your-key-here
+cp .env.example .env
 ```
 
 ### Run a lab
@@ -100,7 +102,7 @@ python 04-workflows/evaluator-optimizer/evaluator_optimizer.py
 ## 📈 Progress
 
 - [x] Repository and lab structure set up
-- [ ] Evaluator–Optimizer workflow
+- [x] Evaluator–Optimizer workflow
 - [ ] Remaining workflow patterns
 - [ ] Augmented LLM: tools, retrieval, memory
 - [ ] Autonomous agent loops
@@ -115,10 +117,6 @@ python 04-workflows/evaluator-optimizer/evaluator_optimizer.py
 - Anthropic — [Tool Use Guide](https://docs.anthropic.com/en/docs/build-with-claude/tool-use)
 
 ---
-
-## 📄 License
-
-Released under the MIT License.
 
 <div align="center">
 

@@ -63,7 +63,10 @@ def parse_json(raw):
     # Models sometimes wrap JSON in ```json fences. Strip them, then parse.
     cleaned = re.sub(r"^```(?:json)?|```$", "", raw.strip(), flags=re.MULTILINE).strip()
     try:
-        return json.loads(cleaned)
+        data = json.loads(cleaned)
+        if isinstance(data, dict):
+            return data
+        return {"pass": False, "issues": [f"Evaluator returned non-object JSON: {raw[:100]}"]}
     except json.JSONDecodeError:
         # A broken evaluator reply counts as a FAILURE, never as a pass.
         return {"pass": False, "issues": [f"Evaluator returned invalid JSON: {raw[:100]}"]}
@@ -144,7 +147,8 @@ def run(question):
         problems = code_checks(answer)
         verdict = llm_evaluate(answer)
         if not verdict.get("pass", False):
-            problems += verdict.get("issues", [])
+            # A failing verdict with no listed issues must still count as a failure.
+            problems += verdict.get("issues") or ["Evaluator failed the text without listing issues."]
 
         print(f"\n--- Round {round_no} ---")
         print(answer)
