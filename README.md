@@ -45,7 +45,7 @@ Workflows orchestrate LLMs through predefined code paths — trading some flexib
 | **Prompt Chaining** | Decompose a task into sequential steps, each consuming the previous output | 🔜 |
 | **Routing** | Classify the input and dispatch it to a specialized handler | 🔜 |
 | **Parallelization** | Run sub-tasks concurrently (sectioning) or sample multiple answers (voting) | 🔜 |
-| **Orchestrator–Workers** | A central LLM breaks down work dynamically and delegates to workers | 🔜 |
+| **Orchestrator–Workers** | A central LLM breaks down work dynamically and delegates to workers | [✅ Lab](04-workflows/Orchestrator-workers/) |
 | **Evaluator–Optimizer** | One LLM generates, another critiques, iterating until quality criteria are met | [✅ Lab](04-workflows/evaluator-optimizer/) |
 
 ---
@@ -55,9 +55,14 @@ Workflows orchestrate LLMs through predefined code paths — trading some flexib
 ```text
 agentic-patterns-lab/
 ├── 04-workflows/
-│   └── evaluator-optimizer/
-│       ├── evaluator_optimizer.py   # generate → check → revise loop
-│       └── README.md                # lab notes and design decisions
+│   ├── evaluator-optimizer/
+│   │   ├── evaluator_optimizer.py   # generate → check → revise loop
+│   │   └── README.md                # lab notes and design decisions
+│   └── Orchestrator-workers/
+│       ├── orchestrator_workers.py  # plan → parse → parallel workers
+│       ├── reference_workflow.py    # reference version I studied, with fixes
+│       ├── util.py                  # llm_call + XML parsing helpers
+│       └── README.md                # lab notes and debugging log
 ├── assets/                          # diagrams (PNG + HTML source)
 ├── .env.example                     # template for your local .env
 ├── .gitignore
@@ -104,7 +109,8 @@ python 04-workflows/evaluator-optimizer/evaluator_optimizer.py
 
 - [x] Repository and lab structure set up
 - [x] Evaluator–Optimizer workflow
-- [ ] Remaining workflow patterns
+- [x] Orchestrator–Workers workflow
+- [ ] Prompt chaining, routing, and parallelization
 - [ ] Augmented LLM: tools, retrieval, memory
 - [ ] Autonomous agent loops
 - [ ] Evaluation and comparison notes across patterns
