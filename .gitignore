@@ -23,3 +23,10 @@ Thumbs.db
 # Outputs
 logs/
 *.log
+
+# RAG: local vector stores and indexes
+chroma/
+chroma_db/
+faiss_index/
+*.faiss
+*.index

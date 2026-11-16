@@ -32,9 +32,20 @@ The goal is not just to read about agents, but to **apply** each idea, measure i
 | # | Module | Focus | Status |
 |:-:|--------|-------|:------:|
 | 01 | **Foundations** | Prompting, the Messages API, structured outputs | 🔜 Planned |
-| 02 | **Augmented LLM** | Tool use, retrieval, memory | 🔜 Planned |
+| 02 | **[Augmented LLM](02-augmented-llm/rag/)** | Retrieval (RAG), tool use, memory | 🚧 In progress |
 | 03 | **Agent Loops** | Autonomous agents, planning, self-correction | 🔜 Planned |
 | 04 | **[Workflows](04-workflows/)** | Composable, predictable LLM pipelines | 🚧 In progress |
+
+### 02 · Augmented LLM: RAG
+
+Grounding the model in my own data: retrieve the relevant chunks first, then answer only from them.
+
+| Lab | Idea | Status |
+|-----|------|:------:|
+| **[Basic RAG](02-augmented-llm/rag/01-basic-rag/)** | Load → chunk → keyword retrieval → grounded answer with citations, no libraries | ✅ |
+| **[Semantic RAG with Chroma](02-augmented-llm/rag/02-semantic-chroma-rag/)** | Embeddings, metadata filters, and a distance cut-off over an infrastructure troubleshooting knowledge base | ✅ |
+| **Hybrid search + reranking** | Combine keyword and semantic scores | 🔜 |
+| **RAG evaluation** | Measure whether answers are grounded in the sources | 🔜 |
 
 ### 04 · Workflows
 
@@ -54,6 +65,11 @@ Workflows orchestrate LLMs through predefined code paths — trading some flexib
 
 ```text
 agentic-patterns-lab/
+├── 02-augmented-llm/
+│   └── rag/
+│       ├── 01-basic-rag/            # RAG from scratch: keyword retrieval + citations
+│       ├── 02-semantic-chroma-rag/  # embeddings, filters, distance cut-off (ChromaDB)
+│       └── README.md                # RAG notes and 01 vs 02 comparison
 ├── 04-workflows/
 │   ├── evaluator-optimizer/
 │   │   ├── evaluator_optimizer.py   # generate → check → revise loop
@@ -111,7 +127,9 @@ python 04-workflows/evaluator-optimizer/evaluator_optimizer.py
 - [x] Evaluator–Optimizer workflow
 - [x] Orchestrator–Workers workflow
 - [ ] Prompt chaining, routing, and parallelization
-- [ ] Augmented LLM: tools, retrieval, memory
+- [x] RAG: basic keyword RAG and semantic RAG with ChromaDB
+- [ ] RAG: hybrid search, reranking, and evaluation
+- [ ] Augmented LLM: tool use and memory
 - [ ] Autonomous agent loops
 - [ ] Evaluation and comparison notes across patterns
 

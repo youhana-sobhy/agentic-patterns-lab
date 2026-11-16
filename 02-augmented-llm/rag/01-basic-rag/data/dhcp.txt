@@ -1,0 +1,7 @@
+Dynamic Host Configuration Protocol (DHCP)
+
+DHCP automatically gives devices the network settings they need when they join a network: an IP address, the subnet mask, the default gateway, and the DNS servers to use.
+
+The process has four steps, often remembered as DORA: Discover (the device broadcasts a request), Offer (a DHCP server offers an address), Request (the device asks for that address), and Acknowledge (the server confirms it).
+
+Addresses are leased for a limited time. Before the lease expires, the device asks to renew it. Without DHCP, every device would need its IP settings typed in by hand.

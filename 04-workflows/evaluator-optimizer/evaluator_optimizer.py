@@ -46,11 +46,10 @@ SYSTEM_EVALUATOR = (
 # Helpers
 # ---------------------------------------------------------------
 
-def ask(prompt, system=None, temperature=1.0):
+def ask(prompt, system=None):
     params = {
         "model": model,
         "max_tokens": 600,
-        "temperature": temperature,
         "messages": [{"role": "user", "content": prompt}],
     }
     if system:
@@ -92,7 +91,7 @@ def generate(question, feedback=None, previous=None):
             f"Rewrite the explanation and fix all the problems."
         )
 
-    return ask(prompt, system=SYSTEM_GENERATOR, temperature=0.7)
+    return ask(prompt, system=SYSTEM_GENERATOR)
 
 
 # ---------------------------------------------------------------
@@ -130,7 +129,7 @@ def llm_evaluate(text):
         '{"pass": true or false, "issues": ["short description of each failed criterion"]}\n'
         "Use an empty list for issues when pass is true."
     )
-    raw = ask(prompt, system=SYSTEM_EVALUATOR, temperature=0.0)
+    raw = ask(prompt, system=SYSTEM_EVALUATOR)
     return parse_json(raw)
 
 

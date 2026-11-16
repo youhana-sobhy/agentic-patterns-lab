@@ -1,0 +1,7 @@
+Network Address Translation (NAT)
+
+NAT lets many devices on a private network share one public IP address. Your home router rewrites the source address of outgoing packets from a private address, such as 192.168.1.20, to its own public address. It remembers each connection in a translation table so replies can be sent back to the right device.
+
+NAT saves public IPv4 addresses, which are limited. It also hides internal devices from the internet by default, because outside hosts cannot start a connection to a private address unless a port forwarding rule allows it.
+
+A common type is PAT (Port Address Translation), where the router also changes the source port so thousands of connections can share a single public IP.
