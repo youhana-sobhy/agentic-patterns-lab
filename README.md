@@ -31,10 +31,18 @@ The goal is not just to read about agents, but to **apply** each idea, measure i
 
 | # | Module | Focus | Status |
 |:-:|--------|-------|:------:|
-| 01 | **Foundations** | Prompting, the Messages API, structured outputs | 🔜 Planned |
+| 01 | **[Foundations](01-foundations/)** | Prompting, prompt evaluation, structured outputs | 🚧 In progress |
 | 02 | **[Augmented LLM](02-augmented-llm/rag/)** | Retrieval (RAG), tool use, memory | 🚧 In progress |
 | 03 | **Agent Loops** | Autonomous agents, planning, self-correction | 🔜 Planned |
 | 04 | **[Workflows](04-workflows/)** | Composable, predictable LLM pipelines | 🚧 In progress |
+
+### 01 · Foundations: Prompt Evaluation
+
+Treating prompts like code: define success first, build a test set with the messy cases, and grade automatically.
+
+| Lab | Idea | Status |
+|-----|------|:------:|
+| **[Alert Severity Eval](01-foundations/prompt-evals/alert-severity-eval/)** | Classify monitoring alerts. Exact-match code grading for the label, an LLM grader with a rubric for the explanation, and a check of the grader against hand labels. 15/15 accuracy, 4.40/5 explanations | ✅ |
 
 ### 02 · Augmented LLM: RAG
 
@@ -65,6 +73,9 @@ Workflows orchestrate LLMs through predefined code paths — trading some flexib
 
 ```text
 agentic-patterns-lab/
+├── 01-foundations/
+│   └── prompt-evals/
+│       └── alert-severity-eval/     # success criterion → test set → code + LLM grading
 ├── 02-augmented-llm/
 │   └── rag/
 │       ├── 01-basic-rag/            # RAG from scratch: keyword retrieval + citations
@@ -124,6 +135,7 @@ python 04-workflows/evaluator-optimizer/evaluator_optimizer.py
 ## 📈 Progress
 
 - [x] Repository and lab structure set up
+- [x] Prompt evaluation: code grading, an LLM grader with a rubric, and grader validation
 - [x] Evaluator–Optimizer workflow
 - [x] Orchestrator–Workers workflow
 - [ ] Prompt chaining, routing, and parallelization

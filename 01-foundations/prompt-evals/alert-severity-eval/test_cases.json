@@ -1,0 +1,107 @@
+[
+  {
+    "id": 1,
+    "input": "CRITICAL: Host db-prod-01 is DOWN. PING CRITICAL - Packet loss = 100%",
+    "expected": "critical",
+    "edge_case": false,
+    "note": "Production database host is completely unreachable."
+  },
+  {
+    "id": 2,
+    "input": "Disk usage on /var is 85% on web-03 (threshold 80%)",
+    "expected": "warning",
+    "edge_case": false,
+    "note": "Over threshold and trending toward full, but nothing is failing yet."
+  },
+  {
+    "id": 3,
+    "input": "Backup job nightly-etl completed successfully in 42m",
+    "expected": "info",
+    "edge_case": false,
+    "note": "Success message, no action needed."
+  },
+  {
+    "id": 4,
+    "input": "AWS EC2 i-0abc123 status check failed: instance unreachable. prod-alb now has 0 healthy targets",
+    "expected": "critical",
+    "edge_case": false,
+    "note": "Load balancer has no healthy targets, so users can't reach the service."
+  },
+  {
+    "id": 5,
+    "input": "CPU utilization on app-02 averaged 78% over the last 15 minutes",
+    "expected": "warning",
+    "edge_case": false,
+    "note": "Elevated load, no impact yet."
+  },
+  {
+    "id": 6,
+    "input": "RESOLVED: Memory usage on cache-01 is back to normal (45%)",
+    "expected": "info",
+    "edge_case": false,
+    "note": "Recovery notice, the problem is already gone."
+  },
+  {
+    "id": 7,
+    "input": "SSL certificate for api.example.com expires in 14 days",
+    "expected": "warning",
+    "edge_case": false,
+    "note": "Will cause an outage if ignored, but there is time to act."
+  },
+  {
+    "id": 8,
+    "input": "APIC fault F0532: fabric node leaf-101 unreachable. All EPG traffic for tenant PROD is dropped",
+    "expected": "critical",
+    "edge_case": false,
+    "note": "Production network traffic is being dropped right now."
+  },
+  {
+    "id": 9,
+    "input": "Terraform plan for workspace staging: No changes. Your infrastructure matches the configuration.",
+    "expected": "info",
+    "edge_case": false,
+    "note": "No-change report."
+  },
+  {
+    "id": 10,
+    "input": "something looks off with the payments service, can someone check?",
+    "expected": "warning",
+    "edge_case": true,
+    "note": "Vague: a plausible problem with no evidence of impact. Policy rule 3."
+  },
+  {
+    "id": 11,
+    "input": "INFO: Disk /data is 99% full on db-prod-02, writes are failing",
+    "expected": "critical",
+    "edge_case": true,
+    "note": "Conflicting: tagged INFO, but production writes are failing. Content beats the label (policy rule 1)."
+  },
+  {
+    "id": 12,
+    "input": "CRITICAL: test alert from the new monitoring setup, please ignore",
+    "expected": "info",
+    "edge_case": true,
+    "note": "Conflicting: tagged CRITICAL, but it is a test alert that needs no action. Policy rule 1."
+  },
+  {
+    "id": 13,
+    "input": "",
+    "expected": "warning",
+    "edge_case": true,
+    "note": "Empty input: the alert pipeline may be broken, so a human should look. Policy rule 2."
+  },
+  {
+    "id": 14,
+    "input": "%%ERR 0x00ff ??? n0d3 ### ~~ t1me0ut ###",
+    "expected": "warning",
+    "edge_case": true,
+    "note": "Garbled: unreadable, but hints at a timeout. Needs a human, not a page. Policy rule 2."
+  },
+  {
+    "id": 15,
+    "input": "vMotion of VM finance-app-01 failed: CPU compatibility mismatch. VM is still running on the source host",
+    "expected": "warning",
+    "edge_case": false,
+    "note": "A maintenance task failed, but the VM is still up and serving."
+  }
+]

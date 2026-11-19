@@ -1,0 +1,167 @@
+[
+  {
+    "id": 1,
+    "input": "CRITICAL: Host db-prod-01 is DOWN. PING CRITICAL - Packet loss = 100%",
+    "expected": "critical",
+    "got": "critical",
+    "passed": true,
+    "edge_case": false,
+    "explanation": "Production database host db-prod-01 is unreachable with 100% packet loss, so it is likely down and any services depending on it are probably failing or at risk of data loss; page on-call now.",
+    "score": 5,
+    "grader_reasoning": "The explanation is a single sentence, which the rubric asks for. It covers the three required elements:\n- What is wrong: the host is unreachable, with 100% packet loss, and is likely down.\n- Where: production database host db-prod-01.\n- Why it matters: dependent services are probably failing or at risk of data loss, and on-call should be paged.\n\nIt also matches the critical severity, so it does not contradict it. The jargon is minimal. \"Packet loss\" is a common term and is tied to \"unreachable,\" so it is not left unexplained. It does not just repeat the alert, because it adds the impact and the action.\n\nMinor weaknesses: the sentence is somewhat long, and it hedges with \"likely\" and \"probably.\" It also adds a recommended action, which the rubric does not require. The hedging is justified because a failed ping does not prove the host is down; it could be a network issue. None of this breaks the rubric's criteria for a 5."
+  },
+  {
+    "id": 2,
+    "input": "Disk usage on /var is 85% on web-03 (threshold 80%)",
+    "expected": "warning",
+    "got": "warning",
+    "passed": true,
+    "edge_case": false,
+    "explanation": "Disk usage on /var on web-03 is at 85%, above the 80% threshold, so it could fill up and cause logging or service failures if the trend continues, but there is no sign of user impact yet, so address it during working hours.",
+    "score": 5,
+    "grader_reasoning": "The explanation is a single sentence, though a long one. It covers all three required elements:\n- What is wrong: disk usage is at 85%, above the 80% threshold.\n- Where: /var on web-03.\n- Why it matters: the disk could fill up and cause logging or service failures if the trend continues.\n\nIt also gives a sensible action: address it during working hours. This is consistent with the warning severity, so it does not contradict the alert. The jargon is minimal and nothing is unexplained. \"The trend\" is slightly loose, since no trend data was given, but it is a conditional and not a claim. The claim of \"no sign of user impact yet\" is an assumption not in the alert, which is a small unsupported addition, but it is not wrong enough to lower the grade much. The sentence is somewhat long, with multiple clauses, but it is still one clear sentence and not confusing. It fits the 5 description."
+  },
+  {
+    "id": 3,
+    "input": "Backup job nightly-etl completed successfully in 42m",
+    "expected": "info",
+    "got": "info",
+    "passed": true,
+    "edge_case": false,
+    "explanation": "Nothing is wrong: the nightly-etl backup job completed successfully in 42 minutes, so no action is needed.",
+    "score": 4,
+    "grader_reasoning": "The alert is an info-level notification that a backup job succeeded. The explanation says nothing is wrong, names the job, gives the duration, and says no action is needed. It is one sentence and has no unexplained jargon. It is consistent with the info severity, so it is not wrong.\n\nThe rubric's \"what is wrong, where, and why it matters\" fits poorly because nothing is wrong. Read against that, the explanation covers the equivalent of \"what\" (the job completed successfully) and the implication (no action needed). It mostly restates the alert, which the rubric penalizes at level 2, but it adds the useful interpretation that no action is required, so it is more than a pure repeat.\n\nMissing pieces: \"where\" is only implicit, since there is no mention of the system, host, or data being backed up. It also does not say why it matters, for example that the backup is current or that the duration is within the normal range. It does not say whether 42 minutes is normal. Those gaps are minor for an info alert.\n\nOverall it is clear, accurate, and appropriately concise. It is missing one element, the context of where and why it matters, which fits a 4."
+  },
+  {
+    "id": 4,
+    "input": "AWS EC2 i-0abc123 status check failed: instance unreachable. prod-alb now has 0 healthy targets",
+    "expected": "critical",
+    "got": "critical",
+    "passed": true,
+    "edge_case": false,
+    "explanation": "EC2 instance i-0abc123 is failing status checks and unreachable, and prod-alb now has 0 healthy targets, meaning the production load balancer has nothing to route to and users are likely getting errors right now.",
+    "score": 5,
+    "grader_reasoning": "The explanation is a single clear sentence covering all three required elements.\n\nWhat: the instance is failing status checks and is unreachable. This is stated plainly.\n\nWhere: it names the specific instance (i-0abc123) and the affected load balancer (prod-alb), and says the production load balancer is affected.\n\nWhy it matters: it explains that with 0 healthy targets the load balancer has nothing to route to, so users are likely getting errors right now. This is consistent with the critical severity.\n\nJargon: \"status checks,\" \"healthy targets,\" and \"load balancer\" are standard terms for on-call engineers, and the explanation clarifies the meaning of \"0 healthy targets\" in plain language. No unexplained jargon.\n\nRepeating the alert: it does restate the alert details, but it adds the consequence (nothing to route to, users getting errors), so it is more than a repeat. The sentence is somewhat long and has a chained structure, but it remains readable and is one sentence.\n\nA minor quibble: \"likely\" hedges the user impact, which is reasonable since impact is inferred, not confirmed. It also doesn't suggest the cause of the failure, but the rubric asks for what/where/why it matters, not root cause.\n\nIt meets all rubric criteria for a 5."
+  },
+  {
+    "id": 5,
+    "input": "CPU utilization on app-02 averaged 78% over the last 15 minutes",
+    "expected": "warning",
+    "got": "warning",
+    "passed": true,
+    "edge_case": false,
+    "explanation": "app-02 CPU has averaged 78% over 15 minutes, which is elevated and leaves limited headroom for traffic spikes, but there is no evidence of user impact or service failure yet, so investigate during working hours.",
+    "score": 5,
+    "grader_reasoning": "The explanation is a single sentence, so it meets the length criterion.\n\nWhat: it says CPU has averaged 78% over 15 minutes and calls this elevated. This is stated clearly.\n\nWhere: it names app-02.\n\nWhy it matters: it says there is limited headroom for traffic spikes. It also notes there is no evidence of user impact or service failure yet, and recommends investigating during working hours. This is consistent with the warning severity and gives the reader a sense of urgency.\n\nJargon: \"headroom\" is mild, commonly understood on-call vocabulary, and the rest is plain. Nothing is left unexplained.\n\nMinor weaknesses: the sentence is somewhat long and packs in an action recommendation along with the explanation. It also partly restates the alert's numbers, but it adds the impact and urgency context beyond a mere repeat. These are small issues and do not remove any of the three required elements."
+  },
+  {
+    "id": 6,
+    "input": "RESOLVED: Memory usage on cache-01 is back to normal (45%)",
+    "expected": "info",
+    "got": "info",
+    "passed": true,
+    "edge_case": false,
+    "explanation": "Nothing is wrong: memory usage on cache-01 has recovered to a normal 45%, so no action is needed.",
+    "score": 4,
+    "grader_reasoning": "The alert is a RESOLVED/info notice, so \"what is wrong\" is effectively \"nothing is wrong now; a prior memory issue cleared.\" The explanation is one clear sentence with no jargon. It covers where (cache-01), what (memory usage recovered to 45%), and why it matters (no action needed). It is consistent with the info severity and doesn't contradict anything.\n\nWeaknesses: it largely restates the alert (\"memory usage on cache-01 has recovered to a normal 45%\"). It adds only \"no action is needed,\" which is the implication. It doesn't mention that there was a prior high-memory condition, or what that implied. For a resolved alert, though, the \"why it matters\" is legitimately that it doesn't matter. The rubric's 5 requires \"what is wrong, where, why it matters\"; the explanation says nothing is wrong, which is accurate for a resolved alert. It's slightly repetitive of the alert, but adds the actionable conclusion, so it's not merely repeating. Strictly, it is missing a bit of context (that it was previously elevated), so a 4 is defensible; but for a resolved info alert, it is essentially ideal.\n\nBeing strict: it does mostly repeat the alert, with the only addition being \"no action needed.\" That adds the why-it-matters element. I'd give 4 for lacking any context about the prior problem (what threshold was breached/that it was high), though it's close to 5."
+  },
+  {
+    "id": 7,
+    "input": "SSL certificate for api.example.com expires in 14 days",
+    "expected": "warning",
+    "got": "warning",
+    "passed": true,
+    "edge_case": false,
+    "explanation": "The SSL certificate for api.example.com expires in 14 days; users aren't affected yet, but renew it soon (and check why auto-renewal hasn't done so) to avoid an outage when it lapses.",
+    "score": 5,
+    "grader_reasoning": "The explanation is a single sentence, as the rubric asks for a \"5\".\n\nWhat: It says the SSL certificate is nearing expiry (14 days). Met.\nWhere: It names api.example.com. Met.\nWhy it matters: It says that when the certificate lapses there will be an outage, so renewal is needed to avoid it. Met.\n\nJargon: \"SSL certificate\" and \"auto-renewal\" are standard terms for an on-call audience and are not unexplained in a problematic way. \"Outage\" is plain.\n\nSeverity consistency: It states users aren't affected yet and frames the action as \"renew it soon\", which fits a warning and does not contradict it.\n\nAccuracy and extras: The suggestion to check why auto-renewal hasn't done so is an assumption, since the alert doesn't say auto-renewal is configured. It is a reasonable inference, since a certificate at 14 days usually would have been renewed already if auto-renewal were set up, but it is slightly speculative. Also, the sentence is somewhat long with its parenthetical, though still one readable sentence. \"Users aren't affected yet\" is accurate because the certificate is still valid.\n\nThese are minor blemishes and not rubric misses: the what, where, and why it matters are all covered in one clear sentence. Because I'm being strict, the mild speculation about auto-renewal and the dense parenthetical are the only concerns, and they don't amount to a missing element or jargon."
+  },
+  {
+    "id": 8,
+    "input": "APIC fault F0532: fabric node leaf-101 unreachable. All EPG traffic for tenant PROD is dropped",
+    "expected": "critical",
+    "got": "critical",
+    "passed": true,
+    "edge_case": false,
+    "explanation": "Fabric node leaf-101 is unreachable and all EPG traffic for tenant PROD is being dropped, so production users are affected now; page someone to restore the leaf or fail traffic over immediately.",
+    "score": 4,
+    "grader_reasoning": "The explanation is one sentence (with a semicolon), which roughly meets the \"one clear sentence\" criterion.\n\nWhat: leaf-101 is unreachable and all EPG traffic for tenant PROD is dropped. This is clear.\nWhere: fabric node leaf-101, tenant PROD. This is specified.\nWhy it matters: production users are affected now, and it gives an action (page someone, restore the leaf or fail traffic over). This is covered and consistent with critical severity.\n\nJargon: \"EPG\" (endpoint group) and \"leaf\" are not explained, and \"fabric node\" is ACI terminology. For an on-call audience familiar with APIC, these are standard terms, but the rubric's top score requires \"no unexplained jargon.\" Also, the explanation largely restates the alert text with the addition of impact and action. It also doesn't say why the leaf is unreachable (cause unknown), but the rubric's \"why it matters\" is about impact, which is covered.\n\nThe sentence is somewhat long and packed, and contains unexplained jargon (EPG), which keeps it from a perfect 5. It meets what/where/why-it-matters fully, so it fits a 4 rather than lower."
+  },
+  {
+    "id": 9,
+    "input": "Terraform plan for workspace staging: No changes. Your infrastructure matches the configuration.",
+    "expected": "info",
+    "got": "info",
+    "passed": true,
+    "edge_case": false,
+    "explanation": "Nothing is wrong: the Terraform plan for the staging workspace reports no changes, so infrastructure matches the configuration and no action is needed.",
+    "score": 5,
+    "grader_reasoning": "The alert is informational: Terraform plan found no drift. The explanation is one sentence and says nothing is wrong, so it is accurate and consistent with the info severity. It names where (the staging workspace) and what (the plan reports no changes, so infrastructure matches the configuration). It also says why it matters, which is that no action is needed. The only jargon is \"Terraform plan\" and \"workspace\", and both are standard for the audience and are the terms the alert itself uses.\n\nThe rubric's \"what is wrong\" criterion is awkward here because nothing is wrong. The explanation handles this correctly by saying so directly. It does lean on the alert's own wording, so it adds little beyond restating it. It does add the conclusion that no action is needed, though, which is the useful part. It could say more about why a clean plan matters, such as confirming there is no configuration drift, but that is a minor gap.\n\nAgainst the rubric, it is clear and one sentence, and it covers what, where, and implication. The slight restating of the alert and the lack of any \"why it matters\" beyond \"no action needed\" keep it just short of perfect, but it is close to a 5. As a strict reviewer, I judge that it meets the criteria: it states the situation, the location, and the significance (no action needed), with no unexplained jargon."
+  },
+  {
+    "id": 10,
+    "input": "something looks off with the payments service, can someone check?",
+    "expected": "warning",
+    "got": "warning",
+    "passed": true,
+    "edge_case": true,
+    "explanation": "A vague report says something is off with the payments service, with no evidence of errors, downtime, or user impact, so someone should investigate soon, but it doesn't warrant a page unless the check turns up real failures.",
+    "score": 4,
+    "grader_reasoning": "The explanation is one sentence, easy to read, and has no unexplained jargon. It also fits the warning severity, since it says to investigate soon but not page unless real failures turn up.\n\nOn the rubric's three elements:\n- **Where:** it names the payments service.\n- **What:** it says only that a vague report claims \"something is off,\" and that there is no evidence of errors, downtime, or user impact. That restates the alert's vagueness and adds no concrete problem. The alert itself has no more detail, so the explanation is honest, but it still leaves \"what\" unspecified.\n- **Why it matters:** it gives a rationale for the urgency level (investigate soon, don't page), though it doesn't say what the potential impact would be, such as failed payments or lost revenue. This is partially met through the triage guidance.\n\nThe sentence is long and a bit run-on, but still one sentence and understandable. It is accurate to the input and consistent with the severity, so it does not fall to a 1 or 2. It does not reach a 5 because \"what is wrong\" is not concretely stated. It is not just a repeat of the alert, since it adds the triage guidance and the note about missing evidence. Overall it is clear but missing a concrete \"what,\" and the \"why it matters\" is only implied, which puts it between 3 and 4."
+  },
+  {
+    "id": 11,
+    "input": "INFO: Disk /data is 99% full on db-prod-02, writes are failing",
+    "expected": "critical",
+    "got": "critical",
+    "passed": true,
+    "edge_case": true,
+    "explanation": "The /data disk on db-prod-02 is 99% full and writes are failing, so production data is at risk and users are likely affected now, despite the INFO tag; free up space or expand the volume immediately.",
+    "score": 5,
+    "grader_reasoning": "The explanation is a single sentence. It says what is wrong: the /data disk is 99% full and writes are failing. It says where: db-prod-02. It says why it matters: production data is at risk and users are likely affected now. It also addresses the mismatch between the INFO tag and the critical severity, so it does not contradict the severity. It adds an action (free up space or expand the volume), which the rubric doesn't penalize. It uses no unexplained jargon. The sentence is somewhat long and packs in several clauses, and \"production data is at risk\" is a bit speculative, but the sentence stays clear and readable. It meets all three required elements (what, where, why it matters) in one clear sentence."
+  },
+  {
+    "id": 12,
+    "input": "CRITICAL: test alert from the new monitoring setup, please ignore",
+    "expected": "info",
+    "got": "info",
+    "passed": true,
+    "edge_case": true,
+    "explanation": "Despite the CRITICAL tag, the alert describes itself as a test from the new monitoring setup and says to ignore it, so no production issue exists and no action is needed.",
+    "score": 4,
+    "grader_reasoning": "The explanation is one clear sentence with no unexplained jargon. It correctly interprets the alert as a test message from the new monitoring setup and tells the reader no action is needed. It also handles the apparent conflict between the \"CRITICAL\" tag in the alert text and the \"info\" severity field. This is consistent with the severity, so it does not meet the \"contradicts the severity\" condition for a 1.\n\nAgainst the \"what / where / why it matters\" criteria: there is no real fault, so \"what is wrong\" becomes \"nothing is wrong, this is a test\", which the explanation states. \"Where\" is the new monitoring setup, which it names. \"Why it matters\" is that no production issue exists and no action is needed, which it also states. For a test alert these elements are all covered as well as they can be.\n\nMinor weaknesses: it largely restates the alert's own content (\"test alert from the new monitoring setup, please ignore\") instead of adding information. It could have said that the test confirms the alerting pipeline works, or mentioned that the CRITICAL label is a test artifact and not a real severity. The sentence is also somewhat long. These are small and do not make it vague or confusing.\n\nOverall it is clear, accurate, and actionable, and nearly meets the 5 standard. The slight repetition of the alert text and the lack of any specific \"where\" beyond the monitoring setup keep me from awarding a perfect score."
+  },
+  {
+    "id": 13,
+    "input": "",
+    "expected": "warning",
+    "got": "warning",
+    "passed": true,
+    "edge_case": true,
+    "explanation": "The alert body is empty, so there is nothing to assess; a human should check whether the monitoring integration or alert template is broken, since real problems could be going unreported.",
+    "score": 4,
+    "grader_reasoning": "The alert body is empty, so the explanation's central claim, that there is nothing to assess, is accurate. It does not invent details, which is the right call.\n\nWhat it says: the alert body is empty (what). It names the monitoring integration or alert template as the possible location (where, though only as a guess). It explains why this matters: real problems could be going unreported (why it matters). The jargon is minimal and understandable to an on-call engineer.\n\nIt is a single sentence, which fits the \"one clear sentence\" requirement, though it is somewhat long and contains a semicolon joining two clauses. The \"where\" is hedged (\"check whether...is broken\") because the source of the fault cannot be known from an empty alert. That is appropriate, but it means the \"where\" is not pinpointed. It also does not specify which alert, service, or system is affected, though that information is not available in the input.\n\nThe severity is \"warning,\" and the explanation's tone (check the integration, possible silent failure) is consistent with that; it does not contradict the severity.\n\nAgainst the rubric, the explanation covers what, a plausible where, and why it matters, with clear wording. The minor weakness is that the \"where\" is speculative and the sentence is a bit compound. That points to a 4 rather than a 5, since a strict reading says the location of the fault is not definitively identified."
+  },
+  {
+    "id": 14,
+    "input": "%%ERR 0x00ff ??? n0d3 ### ~~ t1me0ut ###",
+    "expected": "warning",
+    "got": "warning",
+    "passed": true,
+    "edge_case": true,
+    "explanation": "The alert is garbled, but it appears to reference a node timeout (error 0x00ff). With no readable host, service, or impact details, a human should check whether a node is actually timing out or the monitoring integration is emitting corrupted output.",
+    "score": 3,
+    "grader_reasoning": "The alert is garbled, so the explanation can't be fully specific, and it handles that honestly. It reads the alert as a node timeout with error 0x00ff and says there are no readable host, service, or impact details. It also offers a sensible next step: check whether a node is really timing out or whether the monitoring integration is emitting corrupted output. It doesn't contradict the severity and it doesn't invent details.\n\nMeasured against the rubric:\n- **One clear sentence:** It uses two sentences, so it misses this slightly.\n- **What:** It says a node timeout is likely, hedged appropriately.\n- **Where:** It says no host is identifiable, which is accurate given the alert but means it can't name a location.\n- **Why it matters:** It gives no real impact beyond implying possible corruption or a timeout. It does say impact is unknown.\n- **Jargon:** \"Error 0x00ff\" is repeated from the alert but not explained. This is minor.\n\nThe explanation is clear and useful. It misses where and why it matters, but the alert itself doesn't provide that information. Under a strict reading, it lacks two of the three elements, which would put it at 3. It is still more than vague, because it states the ambiguity precisely and gives an actionable check. It is also slightly too long, at two sentences. A 3 seems fair under the strict rubric, though a 4 is defensible given the input limits. I'll go with 3 because both where and why are missing."
+  },
+  {
+    "id": 15,
+    "input": "vMotion of VM finance-app-01 failed: CPU compatibility mismatch. VM is still running on the source host",
+    "expected": "warning",
+    "got": "warning",
+    "passed": true,
+    "edge_case": false,
+    "explanation": "The vMotion of finance-app-01 failed because of a CPU compatibility mismatch between hosts, but the VM is still running on its source host so users aren't affected; investigate the EVC/CPU baseline soon, since the VM can't be migrated for maintenance or DRS/HA balancing until it's resolved.",
+    "score": 4,
+    "grader_reasoning": "**What:** The vMotion of finance-app-01 failed because of a CPU compatibility mismatch between hosts. This is clearly stated.\n\n**Where:** The VM (finance-app-01) and its source host are named. The destination host isn't named, but the alert doesn't name one either, so nothing is missing relative to the alert.\n\n**Why it matters:** The VM is still running, so users aren't affected. The VM can't be migrated for maintenance or DRS/HA balancing until the problem is fixed. This is consistent with the warning severity and gives a clear action (\"investigate the EVC/CPU baseline soon\").\n\n**Jargon:** EVC, DRS, HA and vMotion are used without explanation. The audience is on-call people who manage VMware, so they probably know these terms, but the rubric asks for \"no unexplained jargon\", and the explanation is dense with acronyms.\n\n**One sentence:** It is a single sentence, but a long one with a semicolon and several clauses. That is a minor strain against \"one clear sentence\".\n\n**Overall:** It covers what, where and why it matters and is accurate and consistent with the severity. The weaknesses are the unexplained acronyms and the length. That is probably a 4, since it is slightly too dense for a perfect score, but it isn't missing a core element."
+  }
+]
